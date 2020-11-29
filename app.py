@@ -53,17 +53,27 @@ layout_page_1 = html.Div([
 ])
 
 layout_page_2 = html.Div([
+    dbc.Navbar([
+            dbc.Row(
+                    dbc.Col([
+                        dcc.Link('Navigate to "/page-1"', href='/page-1'),
+                        dcc.Link('Navigate to "/page-2"', href='/page-2')
+                    ]),
+                    align="center",
+                    no_gutters=True,
+                ),
+                dbc.NavbarToggler(id="navbar-toggler")
+            ],
+            color="dark",
+            dark=True,
+        ),
     html.H2('Page 2'),
     dcc.Dropdown(
         id='page-2-dropdown',
         options=[{'label': i, 'value': i} for i in ['LA', 'NYC', 'MTL']],
         value='LA'
     ),
-    html.Div(id='page-2-display-value'),
-    html.Br(),
-    dcc.Link('Navigate to "/"', href='/'),
-    html.Br(),
-    dcc.Link('Navigate to "/page-1"', href='/page-1'),
+    html.Div(id='page-2-display-value')
 ])
 
 # index layout
