@@ -6,6 +6,10 @@ from dash.dependencies import Input, Output, State
 
 import flask
 
+import pandas as pd
+
+df = pd.read_csv('hp_cleaned.csv')
+
 app = dash.Dash(__name__)
 
 url_bar_and_content_div = html.Div([
@@ -70,7 +74,7 @@ layout_page_2 = html.Div([
     html.H2('Page 2'),
     dcc.Dropdown(
         id='page-2-dropdown',
-        options=[{'label': i, 'value': i} for i in ['LA', 'NYC', 'MTL']],
+        options=[{'label': i, 'value': i} for i in df['Player'].unique()],
         value='LA'
     ),
     html.Div(id='page-2-display-value')
