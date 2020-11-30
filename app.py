@@ -1,4 +1,5 @@
 import dash
+import dash_table
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
@@ -119,8 +120,34 @@ def update_output(n_clicks, input1, input2):
 @app.callback(Output('page-2-display-value', 'children'),
               Input('page-2-dropdown', 'value'))
 def display_value(value):
-    print('display_value')
-    return 'You have selected "{}"'.format(value)
+    table = dash_table.DataTable(
+        id='player-stats',
+        columns=[{"name": i, "id": i} for i in df[df['Player'] == value].columns],
+        data=df[df['Player'] == value].to_dict('records'),
+        style_cell={
+        'whiteSpace': 'normal',
+        'height': 'auto',
+        'width': '400px'
+        },
+        css=[{
+        'selector': '.dash-spreadsheet td div',
+        'rule': '''
+            line-height: 15px;
+            max-height: 30px; min-height: 30px; height: 30px;
+            display: block;
+            overflow-y: hidden;
+        '''
+        }],
+    )
+    return html.Div([
+        dbc.Row(
+            dbc.Col(
+                children=table,
+                width={'size': 6, 'offset': 2},
+                
+            )
+        )
+    ])
 
 
 if __name__ == '__main__':
