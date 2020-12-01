@@ -50,13 +50,21 @@ layout_page_1 = html.Div([
             color="dark",
             dark=True,
         ),
-    html.H2('Team Stats'),
-    dcc.Dropdown(
-        id='page-1-dropdown',
-        options=[{'label': i, 'value': i} for i in df['Team'].unique()],
-        value='LA'
-    ),
-    html.Div(id='page-1-display-value')
+    dbc.Row([
+        dbc.Col([
+            html.H2('Team Stats'),
+            dcc.Dropdown(
+                id='page-1-dropdown',
+                options=[{'label': i, 'value': i} for i in df['Team'].unique()],
+                value=''
+            )
+        ])
+    ]),
+    dbc.Row([
+        dbc.Col([
+            html.Div(id='page-1-display-value')
+            ])
+    ])
 ])
 
 layout_page_2 = html.Div([
@@ -78,7 +86,7 @@ layout_page_2 = html.Div([
     dcc.Dropdown(
         id='page-2-dropdown',
         options=[{'label': i, 'value': i} for i in df['Player'].unique()],
-        value='ACHES'
+        value=''
     ),
     html.Div(id='page-2-display-value')
 ])
