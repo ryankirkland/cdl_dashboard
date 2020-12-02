@@ -5,13 +5,19 @@ import dash_html_components as html
 import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output, State
 
+import plotly.express as px
+import plotly.graph_objects as go
+import plotly.figure_factory as ff
+
 import flask
 
 import pandas as pd
 
+external_stylesheets = [dbc.themes.YETI]
+
 df = pd.read_csv('hp_cleaned.csv')
 
-app = dash.Dash(__name__)
+app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 url_bar_and_content_div = html.Div([
     dcc.Location(id='url', refresh=False),
@@ -153,10 +159,13 @@ def update_output(value):
 @app.callback(Output('page-2-display-value', 'children'),
               Input('page-2-dropdown', 'value'))
 def display_value(value):
+
+    player_df = df[df['Player'] == value].reset_index()
+
     table = dash_table.DataTable(
         id='player-stats',
-        columns=[{"name": i, "id": i} for i in df[df['Player'] == value].columns],
-        data=df[df['Player'] == value].to_dict('records'),
+        columns=[{"name": i, "id": i} for i in player_df.columns],
+        data=player_df.to_dict('records'),
         style_cell={
         'whiteSpace': 'normal',
         'height': 'auto',
@@ -172,7 +181,59 @@ def display_value(value):
         '''
         }],
     )
+
+    kills_graph = go.Figure()
+    kills_graph.add_trace(
+        go.Scatter(
+            y=player_df['Kills'],
+            x=player_df.index,
+            mode='lines+markers',
+            name=f'{value} Kills'
+        )
+    )
+
+    map_group_df = player_df.groupby('Map').sum()
+    vs_who_df = player_df.groupby('Vs Who').sum()
+
+    map_bar = go.Figure()
+    map_bar.add_trace(
+        go.Bar(
+            y=map_group_df['Kills'],
+            x=map_group_df.index
+        )
+    )
+
+    vs_who_bar = go.Figure()
+    vs_who_bar.add_trace(
+        go.Bar(
+            y=vs_who_df['Kills'],
+            x=vs_who_df.index
+        )
+    )
+
     return html.Div([
+        dbc.Row([
+            dbc.Col(
+                dcc.Graph(
+                    id='kills_graph',
+                    figure=kills_graph
+                )
+            )
+        ]),
+        dbc.Row([
+            dbc.Col(
+                dcc.Graph(
+                    id='map_bar',
+                    figure=map_bar
+                )
+            ),
+            dbc.Col(
+                dcc.Graph(
+                    id='vs_who_bar',
+                    figure=vs_who_bar,
+                )
+            )
+        ]),
         dbc.Row(
             dbc.Col(
                 children=table,
