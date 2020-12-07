@@ -227,6 +227,7 @@ def display_value(value, player_comp=''):
             dbc.Row([
                 dbc.Col([
                     html.H2(value),
+                    html.Img(src=f'assets/{value}.png'),
                     html.H3(f'Season Kills: {p1_kills}'),
                     html.H3(f'Season Deaths: {p1_deaths}'),
                     html.H3(f'Season K/D: {p1_kd}')
@@ -403,12 +404,14 @@ def display_value(value, player_comp=''):
                 dbc.Row([
                     dbc.Col([
                         html.H2(value),
+                        html.Img(src=f'assets/{value}.png'),
                         html.H3(f'Season Kills: {p1_kills}'),
                         html.H3(f'Season Deaths: {p1_deaths}'),
                         html.H3(f'Season K/D: {p1_kd}')
                     ]), 
                     dbc.Col([
                         html.H2(player_comp),
+                        html.Img(src=f'assets/{player_comp}.png'),
                         html.H3(f'Season Kills: {p2_kills}'),
                         html.H3(f'Season Deaths: {p2_deaths}'),
                         html.H3(f'Season K/D: {p2_kd}')
