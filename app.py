@@ -226,17 +226,26 @@ def display_value(value, player_comp=''):
         return html.Div([
             dbc.Row([
                 dbc.Col([
-                    html.H2(value),
-                    html.Img(src=f'assets/{value}.png'),
-                    html.H3(f'Season Kills: {p1_kills}'),
-                    html.H3(f'Season Deaths: {p1_deaths}'),
-                    html.H3(f'Season K/D: {p1_kd}')
+                    dbc.Row([
+                        dbc.Col(html.Img(src=f'assets/{value}.png')),
+                        dbc.Col([
+                            html.H2(value),
+                            html.H3(f'Season Kills: {p1_kills}'),
+                            html.H3(f'Season Deaths: {p1_deaths}'),
+                            html.H3(f'Season K/D: {p1_kd}')
+                        ])
+                    ])
                 ]), 
                 dbc.Col([
-                    html.H2(player_comp, style={'display': None}),
-                    html.H3(style={'display': None}),
-                    html.H3(style={'display': None}),
-                    html.H3(style={'display': None})
+                    dbc.Row([
+                        dbc.Col(),
+                        dbc.Col([
+                            html.H2(),
+                            html.H3(),
+                            html.H3(),
+                            html.H3()
+                        ])
+                    ])
                 ])
             ]),
             dbc.Row([
@@ -369,10 +378,15 @@ def display_value(value, player_comp=''):
             return html.Div([
                 dbc.Row([
                     dbc.Col([
-                        html.H2(value),
-                        html.H3(f'Season Kills: {p1_kills}'),
-                        html.H3(f'Season Deaths: {p1_deaths}'),
-                        html.H3(f'Season K/D: {p1_kd}')
+                        dbc.Row([
+                            dbc.Col(html.Img(src=f'assets/{value}.png')),
+                            dbc.Col([
+                                html.H2(value),
+                                html.H3(f'Season Kills: {p1_kills}'),
+                                html.H3(f'Season Deaths: {p1_deaths}'),
+                                html.H3(f'Season K/D: {p1_kd}')
+                            ])
+                        ])
                     ]), 
                     dbc.Col()
                 ]),
@@ -403,18 +417,26 @@ def display_value(value, player_comp=''):
             return html.Div([
                 dbc.Row([
                     dbc.Col([
-                        html.H2(value),
-                        html.Img(src=f'assets/{value}.png'),
-                        html.H3(f'Season Kills: {p1_kills}'),
-                        html.H3(f'Season Deaths: {p1_deaths}'),
-                        html.H3(f'Season K/D: {p1_kd}')
+                        dbc.Row([
+                            dbc.Col(html.Img(src=f'assets/{value}.png')),
+                            dbc.Col([
+                                html.H2(value),
+                                html.H3(f'Season Kills: {p1_kills}'),
+                                html.H3(f'Season Deaths: {p1_deaths}'),
+                                html.H3(f'Season K/D: {p1_kd}')
+                            ])
+                        ])
                     ]), 
                     dbc.Col([
-                        html.H2(player_comp),
-                        html.Img(src=f'assets/{player_comp}.png'),
-                        html.H3(f'Season Kills: {p2_kills}'),
-                        html.H3(f'Season Deaths: {p2_deaths}'),
-                        html.H3(f'Season K/D: {p2_kd}')
+                        dbc.Row([
+                            dbc.Col(html.Img(src=f'assets/{player_comp}.png')),
+                            dbc.Col([
+                                html.H2(player_comp),
+                                html.H3(f'Season Kills: {p2_kills}'),
+                                html.H3(f'Season Deaths: {p2_deaths}'),
+                                html.H3(f'Season K/D: {p2_kd}')
+                            ])
+                        ])
                     ])
                 ]),
                 dbc.Row([
